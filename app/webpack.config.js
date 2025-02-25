@@ -7,8 +7,8 @@ module.exports = {
   entry: {
     global: path.resolve(__dirname, "global.js"),
     index: path.resolve(__dirname, "index.js"),
-    // listProducts: "./list-products.js",
-    // addProducts: "./add-products.js",
+    listProducts: path.resolve(__dirname, "app/assets/js/list-products.js"),
+    addProducts: path.resolve(__dirname, "app/assets/js/add-products.js"),
   },
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -28,7 +28,7 @@ module.exports = {
               includePaths: [path.resolve(__dirname, "node_modules")],
             },
           },
-        },],
+        }],
       },
       {
         test: /\.js$/,
@@ -36,40 +36,39 @@ module.exports = {
         use: "babel-loader",
       },
       {
-        test: /\.(png|jpg|gif)$/,
-        type: "asset/resource", // Para copiar arquivos de imagem
+        test: /\.(png|jpg|gif)$/i,
+        type: "asset/resource",
         generator: {
-          filename: 'assets/images/[name][hash][ext][query]', // Colocando as imagens dentro de assets/images/
+          filename: 'assets/images/[name][hash][ext][query]',
         },
       },
       {
-        test: /\.(woff(2)?|eot|ttf)$/,
-        type: "asset/resource", // Para copiar arquivos de fontes
+        test: /\.(woff(2)?|eot|ttf)$/i,
+        type: "asset/resource",
         generator: {
-          filename: 'assets/fonts/[name][hash][ext][query]', // Colocando as fontes dentro de assets/fonts/
+          filename: 'assets/fonts/[name][hash][ext][query]',
         },
-      },      
+      },
     ],
   },
   plugins: [
     new MiniCssExtractPlugin({
       filename: "[name].css",
     }),
+   
     new HtmlWebpackPlugin({
       template: "./index.html",
       chunks: ["global", "index"],
       filename: "index.html",
     }),
-    // new HtmlWebpackPlugin({
-    //   template: "./list-products.html",
-    //   chunks: ["listProducts", "global"],
-    //   filename: "list-products.html",
-    // }),
-    // new HtmlWebpackPlugin({
-    //   template: "./add-products.html",
-    //   chunks: ["addProducts", "global"],
-    //   filename: "add-products.html",
-    // }),
+    
+    new HtmlWebpackPlugin({
+      template: "./list-products.html",  
+      chunks: ["listProducts", "global"],
+      filename: "list-products.html",
+    }),
+   
+   
   ],
   optimization: {
     minimize: true,
