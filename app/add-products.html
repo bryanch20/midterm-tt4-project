@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Products</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .product-form {
+            margin-bottom: 20px;
+        }
+        .product-form input {
+            margin-bottom: 10px;
+            padding: 8px;
+            width: 200px;
+        }
+        .product-list {
+            margin-top: 20px;
+        }
+        .product-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Add Products</h1>
+
+    <div class="product-form">
+        <h2>Add a New Product</h2>
+        <form id="addProductForm">
+            <input type="text" id="productName" placeholder="Product Name" required><br>
+            <input type="number" id="productPrice" placeholder="Price" required><br>
+            <input type="text" id="productDescription" placeholder="Description"><br>
+            <button type="submit">Add Product</button>
+        </form>
+    </div>
+
+    <div class="product-list">
+        <h2>Product List</h2>
+        <div id="productList"></div>
+    </div>
+
+    <script>
+        document.getElementById('addProductForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const productName = document.getElementById('productName').value;
+            const productPrice = document.getElementById('productPrice').value;
+            const productDescription = document.getElementById('productDescription').value;
+
+            const productItem = document.createElement('div');
+            productItem.classList.add('product-item');
+            productItem.innerHTML = `
+                <strong>${productName}</strong><br>
+                Price: $${productPrice}<br>
+                Description: ${productDescription}
+            `;
+
+            document.getElementById('productList').appendChild(productItem);
+
+            // Clear the form
+            document.getElementById('addProductForm').reset();
+        });
+    </script>
+
+</body>
+</html>
